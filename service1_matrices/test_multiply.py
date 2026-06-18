@@ -11,3 +11,4 @@ print("Envoi de la requête de multiplication...")
 response = requests.post(url, json=payload)
 print(f"Statut HTTP : {response.status_code}")
 print(f"Résultat JSON : {response.json()}")
+
