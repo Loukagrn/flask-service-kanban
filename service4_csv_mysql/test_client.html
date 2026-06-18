@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Service 4</title>
+</head>
+<body>
+
+<h2>Upload CSV</h2>
+
+<form id="uploadForm">
+    <input type="file" id="file" accept=".csv">
+    <button type="submit">Envoyer</button>
+</form>
+
+<pre id="result"></pre>
+
+<hr>
+
+<h2>Séries disponibles</h2>
+
+<button id="seriesBtn">Voir les séries</button>
+
+<pre id="seriesResult"></pre>
+
+<script>
+document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append(
+        'file',
+        document.getElementById('file').files[0]
+    );
+
+    const response = await fetch(
+        'http://localhost:5004/upload/csv',
+        {
+            method: 'POST',
+            body: formData
+        }
+    );
+
+    const data = await response.json();
+
+    document.getElementById('result').textContent =
+        JSON.stringify(data, null, 2);
+});
+
+document.getElementById('seriesBtn').addEventListener('click', async () => {
+
+    const response = await fetch(
+        'http://localhost:5004/upload/series'
+    );
+
+    const data = await response.json();
+
+    document.getElementById('seriesResult').textContent =
+        JSON.stringify(data, null, 2);
+});
+
+</script>
+
+</body>
+</html>
