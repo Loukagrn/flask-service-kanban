@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Test API Matrices - Multiplication</title>
+</head>
+<body>
+    <h1>Test Route Multiplication (/matrices/multiply)</h1>
+    <p>Ouvre la console (F12 ou Clic droit -> Inspecter -> Console) !</p>
+    
+    <script>
+        const data = {
+            A: [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+            B: [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+        };
+        
+        fetch('http://localhost:5001/matrices/multiply', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => console.log("Réponse reçue du serveur :", data))
+        .catch(error => console.error("Erreur :", error));
+    </script>
+</body>
+</html>
