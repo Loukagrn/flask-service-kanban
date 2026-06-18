@@ -1,11 +1,15 @@
 # app.py — Nous exposons ici les routes REST du Service 3
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import numpy as np
 from scipy import stats
 from db import fetch_series, fetch_all_series_names
 
 app = Flask(__name__)
+
+# Nous activons le CORS pour autoriser les requêtes depuis le navigateur
+CORS(app)
 
 
 # Route 1 — GET /db/stats/describe?serie=serie_A
