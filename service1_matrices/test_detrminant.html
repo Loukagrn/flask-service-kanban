@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Test API Déterminant</title>
+</head>
+<body>
+    <h1>Test Route Déterminant (/matrices/determinant)</h1>
+    <p>Ouvre la console (F12) pour voir les résultats.</p>
+    
+    <script>
+        const data = { A: [[1, 2], [3, 4]] };
+        
+        fetch('http://localhost:5001/matrices/determinant', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => console.log("Résultat du déterminant :", data))
+        .catch(error => console.error("Erreur :", error));
+    </script>
+</body>
+</html>
