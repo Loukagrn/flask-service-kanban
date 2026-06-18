@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Tests Service 3 — Stats MySQL</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+        h1 { color: #333; }
+        h2 { color: #555; margin-top: 30px; }
+        button { background: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; margin: 5px; }
+        button:hover { background: #45a049; }
+        .result { background: white; border: 1px solid #ddd; padding: 15px; margin-top: 10px; border-radius: 5px; white-space: pre-wrap; font-family: monospace; }
+        .ok { border-left: 5px solid green; }
+        .erreur { border-left: 5px solid red; }
+    </style>
+</head>
+<body>
+
+    <h1> Tests du Service 3 — Statistiques depuis MySQL</h1>
+
+    <!-- TEST 1 -->
+    <h2>Test 1 — GET /health</h2>
+    <button onclick="testerHealth()">Lancer le test</button>
+    <div id="resultat-health" class="result">En attente...</div>
+
+    <!-- TEST 2 -->
+    <h2>Test 2 — GET /db/series</h2>
+    <button onclick="testerSeries()">Lancer le test</button>
+    <div id="resultat-series" class="result">En attente...</div>
+
+    <!-- TEST 3 -->
+    <h2>Test 3 — GET /db/stats/describe?serie=serie_A</h2>
+    <button onclick="testerDescribe()">Lancer le test</button>
+    <div id="resultat-describe" class="result">En attente...</div>
+
+    <!-- TEST 4 -->
+    <h2>Test 4 — GET /db/stats/correlation?serie_x=serie_A&serie_y=serie_B</h2>
+    <button onclick="testerCorrelation()">Lancer le test</button>
+    <div id="resultat-correlation" class="result">En attente...</div>
+
+    <!-- TEST 5 -->
+    <h2>Test 5 — Série inexistante (doit retourner 404)</h2>
+    <button onclick="testerErreur()">Lancer le test</button>
+    <div id="resultat-erreur" class="result">En attente...</div>
+
+    <script>
+        const BASE = "http://localhost:5003";
+
+        // Nous affichons le résultat dans la bonne div avec la bonne couleur
+        function afficher(id, data, statut) {
+            const div = document.getElementById(id);
+            div.textContent = JSON.stringify(data, null, 2);
+            div.className = "result " + (statut < 400 ? "ok" : "erreur");
+        }
+
+        // Test 1 — Nous vérifions que le service est bien démarré
+        async function testerHealth() {
+            const rep = await fetch(`${BASE}/health`);
+            const data = await rep.json();
+            afficher("resultat-health", data, rep.status);
+        }
+
+        // Test 2 — Nous listons toutes les séries disponibles dans la BDD
+        async function testerSeries() {
+            const rep = await fetch(`${BASE}/db/series`);
+            const data = await rep.json();
+            afficher("resultat-series", data, rep.status);
+        }
+
+        // Test 3 — Nous récupérons les statistiques de serie_A
+        async function testerDescribe() {
+            const rep = await fetch(`${BASE}/db/stats/describe?serie=serie_A`);
+            const data = await rep.json();
+            afficher("resultat-describe", data, rep.status);
+        }
+
+        // Test 4 — Nous calculons la corrélation entre serie_A et serie_B
+        async function testerCorrelation() {
+            const rep = await fetch(`${BASE}/db/stats/correlation?serie_x=serie_A&serie_y=serie_B`);
+            const data = await rep.json();
+            afficher("resultat-correlation", data, rep.status);
+        }
+
+        // Test 5 — Nous vérifions que le service retourne bien une erreur 404
+        async function testerErreur() {
+            const rep = await fetch(`${BASE}/db/stats/describe?serie=inexistante`);
+            const data = await rep.json();
+            afficher("resultat-erreur", data, rep.status);
+        }
+    </script>
+
+</body>
+</html>
