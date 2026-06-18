@@ -63,5 +63,31 @@ def determinant_matrix():
         return jsonify({'operation': 'determinant', 'resultat': round(det, 6)})
     except (ValueError, TypeError) as e:
         return jsonify({'erreur': str(e)}), 400
+
+
+
+# Route 5 — Inverse : POST /matrices/inverse
+@app.route('/matrices/inverse', methods=['POST'])
+def inverse_matrix():
+    data = request.get_json()
+    try:
+        A = parse_matrix(data, 'A')
+        
+        # Vérification 1 : La matrice est-elle carrée ?
+        if A.shape[0] != A.shape[1]:
+            return jsonify({'erreur': 'La matrice doit etre carree'}), 400
+            
+        # Vérification 2 : Le déterminant est-il nul ? (si oui, non inversible)
+        det = np.linalg.det(A)
+        if round(det, 6) == 0:
+            return jsonify({'erreur': 'La matrice n est pas inversible (determinant nul)'}), 400
+            
+        # Calcul de l'inverse
+        inv = np.linalg.inv(A).tolist()
+        return jsonify({'operation': 'inverse', 'resultat': inv})
+        
+    except (ValueError, TypeError) as e:
+        return jsonify({'erreur': str(e)}), 400
+    
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
