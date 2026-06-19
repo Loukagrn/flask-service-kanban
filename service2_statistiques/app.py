@@ -5,19 +5,19 @@ import scipy.stats as stats
 # on lance la machine flask
 app = Flask(__name__)
 
-# notre fonction magique pour pas répéter 50 fois les mêmes vérifications
+# notre fonction sert à pas répéter les mêmes vérifications
 def check_data(json_data, key='data'):
-    # d'abord on regarde si le mec a envoyé un truc vide ou s'il a oublié la clé (comme 'data' ou 'x')
+    # d'abord on regarde si sa a envoyé un truc vide ou si sa a oublié la clé (comme 'data' ou 'x')
     if not json_data or key not in json_data:
-        # si c'est pété, on lève une erreur qui va stopper le code ici
+        # si la clé est manquante, on lève une erreur qui va stopper le code ici
         raise ValueError(f"Clé '{key}' manquante dans le JSON.")
     
     # on extrait la liste qui est cachée derrière la clé
     liste = json_data[key]
     
-    # là on vérifie deux trucs : est-ce que c'est bien un tableau [] (isinstance list) et est-ce qu'il est pas vide
+    # là on vérifie deux chose : est-ce que c'est bien un tableau [] (isinstance list) et est-ce qu'il est pas vide
     if not isinstance(liste, list) or len(liste) == 0:
-        # si c'est pas un tableau ou que c'est vide, bim erreur
+        # si c'est pas un tableau ou que c'est vide, on a une erreur
         raise ValueError(f"'{key}' doit être une liste non vide.")
         
     # c'est ici que ça inspecte le contenu : on prend les éléments un par un (le fameux 'for x in liste')
@@ -27,7 +27,7 @@ def check_data(json_data, key='data'):
             # si y a un intrus (genre du texte "un"), on bloque tout direct avec une erreur de type
             raise TypeError("La liste doit contenir uniquement des nombres.")
             
-    # si le code est arrivé jusqu'ici sans planter, c'est que la liste est parfaite, donc on la renvoie
+    # si le code est arrivé jusqu'ici sans planter c'est que la liste est parfaite donc on la renvoie
     return liste
 
 

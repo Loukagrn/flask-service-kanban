@@ -1,0 +1,9 @@
+{
+    "operation": "test_normalite_shapiro",
+    "resultats": {
+        "p_value": 1.0,
+        "statistique_w": 1.0,
+        "suit_une_loi_normale": true
+    },
+    "total_elements": 3
+}

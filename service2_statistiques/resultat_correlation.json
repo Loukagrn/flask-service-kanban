@@ -1,0 +1,8 @@
+{
+    "operation": "correlation_pearson",
+    "resultats": {
+        "coefficient_r": 1.0,
+        "p_value": 0.0
+    },
+    "taille_listes": 3
+}
