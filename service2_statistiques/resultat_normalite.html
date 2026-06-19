@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>rapport de test - normalite</title>
+</head>
+<body style="font-family: sans-serif; margin: 30px; background-color: #fafafa;">
+    <div style="background: white; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
+        <h2>test de la route : /stats/normalite</h2>
+        <p>code de statut http : <strong>200</strong></p>
+        
+        <h3>donnees envoyees par le client :</h3>
+        <pre style="background: #f0f0f0; padding: 10px; border-radius: 3px;">{"data": [5, 5, 5]}</pre>
+        
+        <h3>reponse de l'api :</h3>
+        <pre style="background: #f0f0f0; padding: 10px; border-radius: 3px;">{
+  "operation": "test_normalite_shapiro",
+  "resultats": {
+    "p_value": 1.0,
+    "statistique_w": 1.0,
+    "suit_une_loi_normale": true
+  },
+  "total_elements": 3
+}</pre>
+    </div>
+</body>
+</html>

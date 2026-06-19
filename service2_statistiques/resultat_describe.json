@@ -1,0 +1,12 @@
+{
+    "operation": "statistiques_descriptives",
+    "resultats": {
+        "ecart_type": 12.9099,
+        "maximum": 40.0,
+        "mediane": 25.0,
+        "minimum": 10.0,
+        "moyenne": 25.0,
+        "variance": 166.6667
+    },
+    "total_elements": 4
+}

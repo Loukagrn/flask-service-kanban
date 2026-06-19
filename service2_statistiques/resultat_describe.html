@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>rapport de test - describe</title>
+</head>
+<body style="font-family: sans-serif; margin: 30px; background-color: #fafafa;">
+    <div style="background: white; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
+        <h2>test de la route : /stats/describe</h2>
+        <p>code de statut http : <strong>200</strong></p>
+        
+        <h3>donnees envoyees par le client :</h3>
+        <pre style="background: #f0f0f0; padding: 10px; border-radius: 3px;">{"data": [10, 20, 30, 40]}</pre>
+        
+        <h3>reponse de l'api :</h3>
+        <pre style="background: #f0f0f0; padding: 10px; border-radius: 3px;">{
+  "operation": "statistiques_descriptives",
+  "resultats": {
+    "ecart_type": 12.9099,
+    "maximum": 40.0,
+    "mediane": 25.0,
+    "minimum": 10.0,
+    "moyenne": 25.0,
+    "variance": 166.6667
+  },
+  "total_elements": 4
+}</pre>
+    </div>
+</body>
+</html>
